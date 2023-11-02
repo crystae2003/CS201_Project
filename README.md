@@ -6,36 +6,52 @@ In this project,we have implemented spell check and prediction of incorrect word
 The code can be compiled and run in terminal/VScode .
 <br>
 1.As the code is in C++, use g++. That is, type 'g++ code.cpp' and press enter to compile the code. 
+<br>
 2.Type './a.out'(in linux) or './a.exe'(in windows) to run the programme.
 <br>
 Alternatively,
 <br>
 1.In VScode select terminal (in menubar), select 'Run Build Task' then compile using g++ compiler. 
+<nr>
 2.To run go to the terminal and type './code'.
 
 #### Make sure that the text file 'vocab.txt' is in the same directory as the code as it contains list of words.
 
 ## Expected input and output
 1.First enter a sentence or a word. and the program will indicate whether the entered words are correct or incorrect.
+<br>
 2.If you want suggestions for the incorrect words, enter '1'. The program will output a list of words that are close to the incorrect words (with a tolerance value of 2), helping you predict what the user might have intended to enter.
 
 ## Example:
 Enter a word/sentence:computerr  engineering algoritmms project data structue    
+<br>
 computerr is incorrect 
+<br>
 engineering is correct
+<br>
 algoritmms is incorrect 
+<br>
 project is correct
+<br>
 data is correct
+<br>
 structue is incorrect 
+<br>
 Enter 1 if you want suggestions for the incorrect words:1
-
+<br>
+<br>
 Did you mean these instead of computerr
+<br>
 compute computer computed computers
-
+<br>
+<br>
 Did you mean these instead of algoritmms
+<br>
 algorithm algorithms
-
+<br>
+<br>
 Did you mean these instead of structue
+<br>
 struct structure structures structured
 
 
