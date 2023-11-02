@@ -12,7 +12,7 @@ The code can be compiled and run in terminal/VScode .
 Alternatively,
 <br>
 1.In VScode select terminal (in menubar), select 'Run Build Task' then compile using g++ compiler. 
-<nr>
+<br>
 2.To run go to the terminal and type './code'.
 
 #### Make sure that the text file 'vocab.txt' is in the same directory as the code as it contains list of words.
