@@ -20,7 +20,7 @@ Alternatively,
 ## Expected input and output
 1.First enter a sentence or a word. and the program will indicate whether the entered words are correct or incorrect.
 <br>
-2.If you want suggestions for the incorrect words, enter '1'. The program will output a list of words that are close to the incorrect words (with a tolerance value of 2), helping you predict what the user might have intended to enter.
+2.If you want suggestions for the incorrect words, enter '1'. The program will output a list of words that are closer to the incorrect words (within the tolerance value of 2), helping you predict what the user might have intended to enter.
 
 ## Example:
 Enter a word/sentence:computerr  engineering algoritmms project data structue    
