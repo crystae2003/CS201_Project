@@ -13,16 +13,18 @@ struct Node
 {
     string word;
     int next[2 * LEN];
-
-    Node(string x) : word(x)
+    //constructors
+    Node(string x) : word(x)//initialize word with x(x is the argument passed)
     {
         for (int i = 0; i < 2 * LEN; i++)
-            next[i] = 0;
+            next[i] = 0;//initializing next[i]'s to zeroes
     }
+// next array is used to link the current node to its child nodes based on their edit distances from the current node's word.
+
     Node() {}
 };
 
-Node *tree = new Node[MAXN];
+Node *tree = new Node[MAXN];//array of node objects
 Node RT;
 int ptr;
 
@@ -30,11 +32,11 @@ int min(int a, int b, int c)
 {
     return min(a, min(b, c));
 }
-
+//calculation of edit distance O(m*n)
 int editDistance(string &a, string &b)
 {
-    int m = a.length(), n = b.length();
-
+    int m = a.length(), n = b.length(); 
+    //dp[m+1][n+1]
     int **dp = new int *[m + 1];
     for (int i = 0; i <= m; i++)
         dp[i] = new int[n + 1];
@@ -46,14 +48,17 @@ int editDistance(string &a, string &b)
 
     for (int i = 1; i <= m; i++)
     {
+        /*if the characters are not equal we find the minimum cost of all 3 operations 
+        which are insert,delete and replace*/
         for (int j = 1; j <= n; j++)
         {
             if (a[i - 1] != b[j - 1])
             {
                 dp[i][j] = min(1 + dp[i - 1][j], 1 + dp[i][j - 1], 1 + dp[i - 1][j - 1]);
+                //insert,remove and replace
             }
             else
-                dp[i][j] = dp[i - 1][j - 1];
+                dp[i][j] = dp[i - 1][j - 1];//when last characters of the strings matches 
         }
     }
 
@@ -68,15 +73,16 @@ int editDistance(string &a, string &b)
 
 void add(Node &root, Node &curr)
 {
-    if (root.word == "")
+    if (root.word == "")//when first node 
     {
         root = curr;
         return;
     }
 
-    int dist = editDistance(curr.word, root.word);
-
-    if (tree[root.next[dist]].word == "")
+    int dist = editDistance(curr.word, root.word);//get edit distance from root node
+    //that is dist equals the edge weight
+    //tree is the array of nodes 
+    if (tree[root.next[dist]].word == "")//if no node present at this edit distance from the root node we make this node(curr) its child
     {
         ptr++;
         tree[ptr] = curr;
@@ -84,6 +90,8 @@ void add(Node &root, Node &curr)
     }
     else
     {
+        //in case of collision
+        //  Therefore, we deal this collision by recursively doing this insertion process on the pre-existing colliding node.
         add(tree[root.next[dist]], curr);
     }
 }
@@ -98,7 +106,7 @@ vector<string> getSimilarWords(Node &root, string &s)
     int dist = editDistance(root.word, s);
 
     if (dist <= TOL)
-        ret.push_back(root.word);
+        ret.push_back(root.word);//if edit distance less than tolerace value adding it to similar words 
 
     for (int i = 1; i < 2 * LEN; i++)
     {
@@ -116,15 +124,15 @@ int main()
 {
     fstream file;
     string filename;
-    filename = "vocab.txt";
+    filename = "vocab2.txt";//contains the list of words for the dictionary
     ptr = 0;
     string word;
-    vector<string> dictionary;
-    file.open(filename.c_str());
+    vector<string> dictionary;//to store the words in the file
+    file.open(filename.c_str());//opening the file filename= vocab.txt
     while (file >> word)
     {
         Node tmp = Node(word);
-        add(RT, tmp);
+        add(RT, tmp);//adding the word to the tree
         dictionary.push_back(word);
     }
 
@@ -141,7 +149,7 @@ int main()
         wordsInSentence.push_back(wordInSentence);
     }
     int flag=-1;
-    for (std::string &inputWord : wordsInSentence)
+    for (std::string &inputWord : wordsInSentence)//inputWord=wordsInSentence
     {
         vector<string> similarWords = getSimilarWords(RT, inputWord);
 
@@ -149,7 +157,7 @@ int main()
 
         for (const string &word : similarWords)
         {
-            if (word == inputWord)
+            if (word == inputWord)//string matches then it's correct
             {
                 isCorrect = true;
                 break;
@@ -169,7 +177,7 @@ int main()
         }
     }
     if(flag==1){
-        int val;
+        int val;//suggestions for the incorrect words
         cout<<"Enter 1 if you want suggestions for the incorrect words:";
         cin>>val;
         if(val==1){
