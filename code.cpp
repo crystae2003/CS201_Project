@@ -108,13 +108,15 @@ vector<string> getSimilarWords(Node &root, string &s)
     if (dist <= TOL)
         ret.push_back(root.word);//if edit distance less than tolerace value adding it to similar words 
 
-    for (int i = 1; i < 2 * LEN; i++)
-    {
-        if (root.next[i] != 0)
-        {
-            vector<string> tmp = getSimilarWords(tree[root.next[i]], s);
-            ret.insert(ret.end(), tmp.begin(), tmp.end());
-        }
+    int start=dist-TOL;
+    if(start<0){
+        start=1;
+    }
+    while(start<=dist + TOL){
+        vector <string> tmp = getSimilarWords(tree[root.next[start]],s);
+        for (auto i : tmp)
+            ret.push_back(i);
+        start++;
     }
 
     return ret;
